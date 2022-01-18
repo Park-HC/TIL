@@ -1,4 +1,4 @@
-# 파이썬1
+# Python 변수와 연산자
 
   ## 프로그래밍
 
@@ -54,6 +54,7 @@ dust = 60
   6. 클래스 이름 지을 때는 대문자
   7. 몇몇 키워드로 *만들 수 없음*
   7. 내장함수나 모듈 등의 이름으로 *만들면 안 됨*
+  7. 쓸데없이 긴 변수명보다는 짧은 변수명이, 알아보기 힘들 정도로 짧은 변수명보다는 긴 변수명이 더 낫다
 
 
 
@@ -99,13 +100,16 @@ dust = 60
   - 정수가 아닌 모든 실수는 'float' 형태
 
     - 실수를 컴퓨터가 표현할 때 2진수(비트)로 표현함
+    
     - 이 과정에서 floating point rounding error 발생, 예상치 못한 결과 발생
-
+    
+      > 부동소수점 문제
+    
     ```python
     bool(3.14 - 3.02 == 0.12)
     	False
     ```
-
+    
     ```python
     # 1. 임의의 작은 수
     abs(a - b) <= 1e-10
@@ -119,6 +123,18 @@ dust = 60
     import math
     math.isclose(a, b)
     ```
+
+- 복소수는 'complex' 형태
+
+  ```python
+  a = 3 + 4j
+  complex('1+2j')
+  # 문자열을 complex로 치환할 수 있음
+  complex('1 + 2j')
+  # 문자열에 공백이 있으면 complex로 치환할 수 없음
+  ```
+
+  
 
 
 
@@ -191,7 +207,9 @@ dust = 60
   their_list = list()
   ```
 
-  `enumerate()`: (index, value) 형태의 tuple로 구성된 열거 객체 반환
+ 변수명에 `_list`를 붙이거나 복수형으로 써서 한 눈에 List란 걸 알아 볼 수 있게 설정하자
+
+`enumerate()`: (index, value) 형태의 tuple로 구성된 열거 객체 반환
 
   
 
@@ -235,6 +253,8 @@ dust = 60
   ### Dictionary
 
   * key는 변경 불가능한 데이터(list, dictionary 등 불가능)
+    * 거의 대부분 string을 사용
+
   * value는 모든 값을 설정 가능
 
   	`keys()`: Key로 구성된 결과
@@ -246,6 +266,8 @@ dust = 60
   
 
 
+
+
   ### 형 변환(Typecasting)
 
   #### 암시적 형 변환
@@ -253,6 +275,23 @@ dust = 60
   사용자가 의도하지 않아도 파이썬 내부에서 자료형 변환함
 
   - bool
+
+    ```python
+    True + 100
+    # 출력: 101
+    
+    3 + 3.2
+    # int + float => float
+    
+    3 + (3 + 2j)
+    # float + complex => complex
+    
+    3.2 + (3 + 2j)
+    # float + complex => complex
+    ```
+
+    
+
   - 수치형(int <-> float)
 
   #### 명시적 형 변환
@@ -278,139 +317,96 @@ dust = 60
   a, b, c, d = (4, 5, 0, 5)
   ```
 
+```python
+True and False and True and True and False
+# 2번째 연산에서 종료
+
+True or True or True or False or False or 5 / 0
+# 1번째 연산에서 종료, error 없음
+
+'' or [] or None or 0 or 'a' or 'b' and ''
+# 'a' 출력
+
+'a' and 'b' in 'aeiou'
+'b' and 'a' in 'aeiou'
+# False, True
+```
+
+
+
   ### 복합 연산자
 
-  ### 식별 연산자
+```python
+a += b  # a = a + b
+a -= b  # a = a - b
+a *= b  # a = a * b
+a /= b  # a = a / b
+a //= b  # a = a // b
+a %= b  # a = a % b
+a **= b  # a = a ** b
+```
+
+
+
+  ### 식별 연산자(Identity Operator)
+
+```python
+a = 3
+b = 3
+a is b  # True, -5 ~ 256까지 정수의 id는 동일
+
+a = [1, 2]
+b = [1, 2]
+a is b  # False
+
+a = 257
+b = 257
+a is b  # False # 257 이상의 정수는 id가 다름
+```
+
+
 
   ### 멤버십 연산자
+
+```python
+not in
+in
+```
+
+
 
   ### 시퀸스형 연산자
 
   - 산술연산자(+)
     - 시퀸스 간의 연결, 연쇄
+    
   - 반복연산자(*)
     - 시퀸스를 반복
+    
   - 인덱싱
     - 특정 인덱스 값에 접근
     - 인덱스가 없는 경우 IndexError
+    
   - 슬라이싱
+
+    - 슬라이스 마지막 인덱스가 지나치게 크더라도 오류가 발생하지 않는다
+
+      ```python
+      print(s[::])    # 정순정렬(s 그대로 출력)
+      print(s[::-1])  # 역순정렬
+      ```
+
+      
+
   - set 연산자
     - |: 합집합
     - &: 교집합
     - -: 여집합
     - ^: 대칭차
 
-  
+### 연산자 우선순위
 
-  ## 조건문
+```python
+-3 ** 6 != (-3) ** 6
+```
 
-  ### 기본 형식
-
-  ```python
-  if <expression == True>:
-      # Run this Code Block
-  else :
-      # Run this Code Block
-  ```
-
-  ### 복수 조건문
-
-  ```python
-  if <expression == True>:
-      # Run this Code Block
-  elif <expression == True>:
-      # Run this Code Block
-  elif <expression == True>:
-      # Run this Code Block
-  else:
-      # Run this Code Block
-  ```
-
-  ### 중첩 조건문
-
-  ```python
-  if <expression == True>:
-      # Run this Code Block
-      if <expression == True>:
-          # Run this Code Block
-  elif <expression == True>:
-      # Run this Code Block
-  elif <expression == True>:
-      # Run this Code Block
-  else:
-      # Run this Code Block
-  ```
-
-  
-
-  ### 조건 표현식
-
-  ```python
-  value = num if num >= else -num
-  # value = abs(num)
-  
-  result = '홀수입니다.' if num % 2 else '짝수입니다'
-  ```
-
-  
-
-  ## 반복문
-
-  ### While
-
-  ```python
-  while <expression>:
-      # Code block
-  ```
-
-  ### For
-
-  ```python
-  for <변수명> in <iterable>:
-      #Code block
-  else:
-      #Code block
-  ```
-
-  ```python
-  chars = input()
-  
-  for char in chars:
-      print(char)
-  
-  for idx in range(len(chars)):
-      print(chars[idx])
-  ```
-
-  #### List Comprehension
-
-  ```python
-  [<expression> for <변수> in <iterable>]
-  [<expression> for <변수> in <iterable> if <조건식>]
-  ```
-
-  #### Dictionary Comprehension
-
-  ```python
-  {key: value for <변수> in <iterable>}
-  {key: value for <변수> in <iterable> if <조건식>}
-  ```
-
-  ### 반복문 제어
-
-  1. break
-     - 반복문을 종료
-  2. continue
-     - continue 이후의 코드 블록은 수행하지 않고, 다음 반복을 수행
-  3. for-else
-     - 끝까지 반복문을 실행한 이후에 else문 실행
-     - break 종료되는 경우 else문은 실행되지 않음
-  4. pass
-     - 아무것도 하지 않음
-     - 반복문이 아니여도 사용 가능
-
-  
-
-  # Tip
-
-  - 오류 해결 때 메세지, 특히 'unpack'이 있는 부분을 유심히 살펴보자
