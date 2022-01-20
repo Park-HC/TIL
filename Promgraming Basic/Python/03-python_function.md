@@ -179,8 +179,7 @@ f1 = lambda x: x ** 2
 
 #### 범위
 
-- 추상화
-- 함수는 코드 내부에 local scope를 생성, 그 외 공간인 global과 구분
+##### Local scope & Global scope
 
 ```python
 def ham():
@@ -190,7 +189,66 @@ def ham():
 ham()
 print(a)
 # NameError: name 'a' is not defined
+
+-------------------------
+
+n = 0
+
+def func():
+    n = n+1
+    
+func()
+# UnboundLocalError: local variable 'n' referenced before assignment
+
+---------------------------
+
+n = 0
+
+def func():
+    print(n+1)
+    
+func()
+# 1
 ```
+
+```python
+def list_sum_1(numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+list_sum_1([1,2,3,4,5])
+# return 있음, 다양한 상황에 사용 가능
+---------------------------------
+total = 0
+
+def list_sum_2(numbers):
+    global total
+    for num in numbers:
+        total += num
+        
+list_sum_2([1,2,3,4,5])
+# return 없음, 특정한 상황에서만 사용 가능(사용을 위해 total 선언 및 재사용 필요)
+```
+
+
+
+- local에서 global 변수에 재할당할 수는 없지만, 수정할 수는 있음!
+
+  ```python
+  a = [3, 2, 1]
+  
+  def func():
+      a.sort()
+      a.append(4)
+  
+  func()
+  print(a)
+  # [1, 2, 3, 4]
+  ```
+
+  
 
 ##### 변수 수명주기(lifecycle)
 
@@ -370,6 +428,37 @@ def factorial(x):
 #### 반복문 vs 재귀함수
 
 - 알고리즘 자체가 재귀적인 표현이 자연스러운 경우
+
 - 재귀함수는 변수 사용이 줄어듦
+
 - 재귀함수는 함수 호출/사용이 늘어남
+
 - 입력 값이 커질수록 연산량이 많아짐
+
+  ```python
+  def fib(n):
+      if n < 2:
+          return n
+      return fib(n-1) + fib(n-2)
+  
+  fib(35)
+  # 수초가 걸림
+  
+  ----------------------------------------
+  
+  def fib_loop(n):
+      fibos = []
+      
+      for i in range(n+1):
+          if i < 2:
+              fibos.append(i)
+          else:
+              fibos.append(fibos[i - 1] + fibos[i - 2])
+      
+      return fibos[-1]
+  
+  fib_loop(35)
+  # 거의 즉시 출력
+  ```
+
+  
