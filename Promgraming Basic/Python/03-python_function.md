@@ -268,7 +268,7 @@ list_sum_2([1,2,3,4,5])
 - 파이썬에서 사용되는 이름들은 이름공간(namespace)에 저장되어 있음
 - LEGB 규칙
   1. Local scope: 함수
-  2. Enclosed scope: 특정 함수의 상의 함수
+  2. Enclosed scope: 특정 함수의 상위 함수
   3. Global scope: 함수 밖의 변수, Import 모듈
   4. Built-in scope: 파이썬 안에 내장되어 있는 함수 또는 속성
 - 함수 내에서 바깥 Scope 변수에 접근 가능하나 수정은 할 수 없음
