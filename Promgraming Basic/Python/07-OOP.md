@@ -177,12 +177,14 @@ del p1
 - Double underscore(__)가 있는 메소드
 - 특수한 동작을 위해 만들어진 메소드
 - 특정 상황에 자동으로 불러와지는 메소드
-
 - 객체의 특수 조작 행위를 지정(함수, 연산자 등)
   - `__str__`: 해당 객체의 출력 형태를 지정
     - 프린트 함수 호출시, 자동으로 호출
     - 어떤 인스턴스를 출력하면 `__str__`의 return 값이 출력
+  - `__repr__`: 해당 객체 자체를 호출할 때 출력 형태
   - `__gt__`: 부등호 연산자(>, greater than)
+  - `__ eq__`: 등호 연산자(==, equal)
+  - `__doc__`: 클래스의 "docstring"(클래스 내부의 주석)를 출력
 
 
 
@@ -223,9 +225,37 @@ class MyClass:
 My.class_method(...)
 ```
 
+```python
+@classmethod
+def class_method(cls):
+    return cls
+
+MyClass.class_method() is MyClass
+# True
+mc.class_method() is mc
+# False
+```
+
+
+
 
 
 #### 스태틱 메소드
+
+```python
+@staticmethod
+def static_method(arg):
+    return arg
+"""..."""
+
+MyClass.static_method()
+# static_method() missing 1 required positional argument: 'arg'
+
+MyClass.static_method(MyClass) is MyClass
+# True
+```
+
+
 
 - 인스턴스 변수, 클래스 변수를 전혀 다루지 않는 메소드
 
@@ -241,6 +271,8 @@ My.class_method(...)
 ### 추상화
 
 - 언어적 설계를 기반으로 프로그램을 설계함
+- 세부적인 내용은 감추고 필수적인 부분만 표현하는 것
+- 여러 클래스가 공통적으로 사용할 속성 및 메서드를 추출하여 기본 클래스로 작성
 
 
 
@@ -264,6 +296,42 @@ issubclass(class, classinfo)
 super()
 # 자식클래스에서 부모클래스를 사용하고 싶은 경우
 ```
+
+```python
+p1 = Person('s')
+dir(p1)
+
+['__class__',
+ '__delattr__',
+ '__dict__',
+ '__dir__',
+ '__doc__',
+ '__eq__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__gt__',
+ '__hash__',
+ '__init__',
+ '__init_subclass__',
+ '__le__',
+ '__lt__',
+ '__module__',
+ '__ne__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__setattr__',
+ '__sizeof__',
+ '__str__',
+ '__subclasshook__',
+ '__weakref__',]
+
+# 모든 클래스는 object의 자식 클래스이며, 고로 그 메소드를 상속 받고 있다.
+```
+
+
 
 #### 다중 상속
 
@@ -299,35 +367,67 @@ super()
 ### 캡슐화
 
 - 객체의 일부 구현 내용에 대해 외부로부터 직접 엑세스 하는 것을 차단
+
 - 파이썬에서 암묵적으로 존재하지만, 언어적으로는 존재하지 않음
+
 - 접근 제어자
   - Public Access Modifier
   - Protected Access Modifier
   - Private Access Modifier
+  
+  
 
 #### Public Member
 
 - 언더바 없이 시작하는 메소드나 속성
-- 어디서나 호출 가능, 하위 클래스 override 허용
+- **어디서나 호출 가능**, 하위 클래스 override 허용
 - 메소드와 속성의 대다수를 차지
+
+
 
 #### Protected Member
 
 - 언더바 1개로 시작하는 메소드나 속성
-- 암묵적 규칙에 의해 부모 클래스 내부와 자식 클래스에서만 호출 가능
+- **암묵적 규칙에 의해 부모 클래스 내부와 자식 클래스에서만 호출 가능**
 - 하위 클래스 override 허용
+
+
 
 #### Private Member
 
 - 언더바 2개로 시작하는 메소드나 속성
 - 본 클래스 내부에서만 사용이 가능
-- 하위클래스 상속 및 호출 불가능(오류)
+- **하위클래스 상속 및 호출 불가능(오류)**
 - 외부 호출 불가능(오류)
+
+
 
 #### getter 메소드와 setter 메소드
 
 - 변수에 접근할 수 있는 메소드를 별도로 생성
 - getter 메소드: 변수의 값을 읽는 메소드
   - @property 데코레이터 사용
+    - 함수를 변수처럼 선언할 수 있음
 - setter 메소드: 변수의 값을 설정하는 성격의 메소드
   - @변수.setter 사용
+    - 함수를 변수처럼 할당할 수 있음
+
+```python
+class Person:
+    
+    def __init__(self, age):
+        self._age = age 
+        
+    @property
+    def age(self):
+        return self._age
+    
+    @age.setter  # progerty의 age를 의미함 _age로 쓰면 예외 발생
+    def age(self, new_age):
+        if new_age <= 19:
+            raise ValueError('Too Young For SSAFY')
+            return
+        
+        self._age = new_age
+```
+
