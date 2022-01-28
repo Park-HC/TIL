@@ -1,58 +1,72 @@
-def is_red(squre_string):
-    return True if squre_string[-1] == '1' else False
-
-def string_to_coord(squre_string):
-    coords = []
-    numbers = list(map(int, squre_string.split(' ')))
-    coords.append((numbers[0], numbers[1]))
-    coords.append((numbers[2], numbers[3]))
-    return coords
-
-def cal_area(ord_l, ord_r):
-    return abs(ord_r[0] - ord_l[0]) * abs(ord_l[1] - ord_r[1])
-
-def cal_coverlap(red_squre, blue_squre):
-    red_area = cal_area(*red_squre)
-    blue_area = cal_area(*blue_squre)
-
-    if blue_squre[0][0] <= red_squre[0][0] <= blue_squre[1][0]:
-        if blue_squre[0][1] >= red_squre[0][1] >= blue_squre[1][1]:
-            return min((red_area, blue_area, cal_area((red_squre[0][0],red_squre[0][1]), (blue_squre[1][0],blue_squre[1][1]))))
-        elif blue_squre[0][1] >= red_squre[1][1] >= blue_squre[1][1]:
-            return min((red_area, blue_area, cal_area((red_squre[0][0],red_squre[1][1]), (blue_squre[1][0],blue_squre[0][1]))))
+class Vertice():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+class Rectangle():
+    def __init__(self, p1, p2):
+        self.p1 = p1
+        self.p2 = p2
+    
+    def __str__(self):
+        return print(f'p1 is ({self.p1.x}, {self.p1.y}, p2 is ({self.p2.x}, {self.p2.y})')
+    
+    def area(self):
+        return abs(self.p1.x - self.p2.x) * abs(self.p1.y - self.p2.y)
+    
+    def inner_vertice(self, other):
+        v1 = v2 = 0
+        
+        if other.p1.x < self.p1.x < other.p2.x or other.p2.x < self.p1.x < other.p1.x:
+            v1 = self.p1.x
+        elif other.p1.x < self.p2.x < other.p2.x or other.p2.x < self.p2.x < other.p1.x:
+            v1 = self.p2.x
         else:
-            print('1')
+            return
+        
+        if other.p1.y < self.p1.y < other.p2.y or other.p2.y < self.p1.y < other.p1.y:
+            v2 = self.p1.y
+        elif other.p1.y < self.p2.y < other.p2.y or other.p2.y < self.p2.y < other.p1.y:
+            v2 = self.p2.y
+        else:
+            return
+        
+        return Vertice(v1, v2)
+
+    def overlap(self, other):
+        n1 = self.inner_vertice(other)
+        n2 = other.inner_vertice(self)
+
+        if not(n1 and n2):
             return 0
-    elif blue_squre[0][0] <= red_squre[1][0] <= blue_squre[1][0]:
-        if blue_squre[0][1] >= red_squre[0][1] >= blue_squre[1][1]:
-            return min((red_area, blue_area, cal_area((red_squre[1][0],red_squre[0][1]), (blue_squre[0][0],blue_squre[1][1]))))
-        elif blue_squre[0][1] >= red_squre[1][1] >= blue_squre[1][1]:
-            return min((red_area, blue_area, cal_area((red_squre[1][0],red_squre[1][1]), (blue_squre[0][0],blue_squre[0][1]))))
         else:
-            print('2')
-            return 0
-    else:
-        print('3')
-        return 0
+            overlap_rectangle = Rectangle(n1, n2)
+            return overlap_rectangle.area()
 
-def coverlap(num_squre, *squre_string):
-    blue_squres = []
-    red_squres = []
-    area_overlap = 0
+def string_to_numbers(words):
+    numbers = list(map(int, words.split(' ')))
+    return numbers
 
-    for i in range(num_squre):
-        if is_red(squre_string[i]):
-            red_squres.append(string_to_coord(squre_string[i]))
-        else:
-            blue_squres.append(string_to_coord(squre_string[i]))
+num_of_test = int(input())
 
-    for red_squre in red_squres:
-        for blue_squre in blue_squres:
-            area_overlap += cal_coverlap(red_squre, blue_squre)
+for i in range(1, num_of_test+1):
+    num_of_rectangle = int(input())
 
-    return area_overlap
+    reds = []
+    blues = []
+    area_of_overlap = 0
 
+    for _ in range(num_of_rectangle):
+        numbers = string_to_numbers(input())
+        push_Rectangle = Rectangle(Vertice(numbers[0],numbers[1]),Vertice(numbers[2]+1,numbers[3]+1))
 
-print(coverlap(2, '2 2 4 4 1', '3 3 6 6 2'))
-print(coverlap(3, '1 2 3 3 1', '3 6 6 8 1', '2 3 5 6 2'))
-print(coverlap(3, '1 4 8 5 1', '1 8 3 9 1', '3 2 5 8 2'))
+        reds.append(push_Rectangle) if numbers[-1] == 1 else blues.append(push_Rectangle)
+
+    for red in reds:
+        for blue in blues:
+            print(red, blue)
+            area_of_overlap += red.overlap(blue)
+            print(area_of_overlap)
+    
+    print(f'#{i} {area_of_overlap}')
+            

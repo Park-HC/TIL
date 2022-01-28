@@ -81,9 +81,16 @@
 
 - ZeroDivisoinError
 
+  - 숫자형 자료를 0으로 나눌 경우 발생
+
 - NameError
 
+  - namespace에 이름이 없는 객체를 호출할 경우
+
 - TypeError
+
+  - 함수 인자의 타입이 함수에서 요구하는 것과 일치하지 않을 경우
+  - 함수 인자의 개수가 함수에서 요구하는 것에 못 미치거나 더 많을 경우
 
   ```python
   1 + '1'
@@ -98,23 +105,38 @@
 
 - ValueError
 
+  - 타입은 올바르지만 값이 올바르지 않거나 없는 경우
+
   ```python
   int('3.5')
   range(3).index(6)
-  # 타입은 올바르나 값이 적절하지 않거나 업는 경우
+  # 타입은 올바르나 값이 적절하지 않거나 없는 경우
   ```
 
 - IndexError
 
+  - List에서 존재하지 않거나 범위를 벗어난 인덱스를 호출했을 경우
+
 - KeyError
+
+  - Dictionary에서 존재하지 않는 키를 호출했을 경우
 
 - MoudleNotFoundError
 
+  - 존재하지 않는 Module을 import 했을 경우
+
 - ImportError
+
+  - Moudle은 있으나 그 Module에서 존재하지 않는 클래스/함수 등을 가져오려고 했을 경우
 
 - KeyboardInterrupt
 
+  - 임의로 프로그램을 종료했을 경우
+
 - IndentationError
+
+  - Indentation(코드 블록)이 적절하지 않는 경우
+
 
 
 

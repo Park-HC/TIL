@@ -185,7 +185,7 @@ s.copy()
 # set의 shallow copy를 반환
 
 s.pop()
-# set에서 랜덤하고 항목을 지우고 그 항목을 반환함
+# set에서 랜덤한 항목을 지우고 그 항목을 반환함
 # set이 비었을 경우 KeyError
 
 s.remove(x)
