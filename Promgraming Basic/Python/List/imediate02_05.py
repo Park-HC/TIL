@@ -8,40 +8,36 @@ class Rectangle():
         self.p1 = p1
         self.p2 = p2
     
-    def __str__(self):
-        return print(f'p1 is ({self.p1.x}, {self.p1.y}, p2 is ({self.p2.x}, {self.p2.y})')
-    
     def area(self):
         return abs(self.p1.x - self.p2.x) * abs(self.p1.y - self.p2.y)
     
-    def inner_vertice(self, other):
-        v1 = v2 = 0
-        
-        if other.p1.x < self.p1.x < other.p2.x or other.p2.x < self.p1.x < other.p1.x:
-            v1 = self.p1.x
-        elif other.p1.x < self.p2.x < other.p2.x or other.p2.x < self.p2.x < other.p1.x:
-            v1 = self.p2.x
-        else:
-            return
-        
-        if other.p1.y < self.p1.y < other.p2.y or other.p2.y < self.p1.y < other.p1.y:
-            v2 = self.p1.y
-        elif other.p1.y < self.p2.y < other.p2.y or other.p2.y < self.p2.y < other.p1.y:
-            v2 = self.p2.y
-        else:
-            return
-        
-        return Vertice(v1, v2)
-
     def overlap(self, other):
-        n1 = self.inner_vertice(other)
-        n2 = other.inner_vertice(self)
-
-        if not(n1 and n2):
-            return 0
+        width_overlap = 0
+        length_overlap = 0
+        
+        if other.p1.x <= self.p1.x <= other.p2.x and other.p1.x <= self.p2.x <= other.p2.x:
+            width_overlap = self.p2.x - self.p1.x
+        elif self.p1.x <= other.p1.x and other.p2.x <= self.p2.x:
+            width_overlap = other.p2.x - other.p1.x
+        elif other.p1.x <= self.p1.x <= other.p2.x:
+            width_overlap = other.p2.x - self.p1.x
+        elif other.p1.x <= self.p2.x <= other.p2.x:
+            width_overlap = self.p2.x - other.p1.x
         else:
-            overlap_rectangle = Rectangle(n1, n2)
-            return overlap_rectangle.area()
+            return 0
+        
+        if other.p1.y <= self.p1.y <= other.p2.y and other.p1.y <= self.p2.y <= other.p2.y:
+            length_overlap = self.p2.y - self.p1.y
+        elif self.p1.y <= other.p1.y and other.p2.y <= self.p2.y:
+            length_overlap = other.p2.y - other.p1.y
+        elif other.p1.y <= self.p1.y <= other.p2.y:
+            length_overlap = other.p2.y - self.p1.y
+        elif other.p1.y <= self.p2.y <= other.p2.y:
+            length_overlap = self.p2.y - other.p1.y
+        else:
+            return 0
+        
+        return width_overlap * length_overlap
 
 def string_to_numbers(words):
     numbers = list(map(int, words.split(' ')))
@@ -64,9 +60,7 @@ for i in range(1, num_of_test+1):
 
     for red in reds:
         for blue in blues:
-            print(red, blue)
             area_of_overlap += red.overlap(blue)
-            print(area_of_overlap)
     
     print(f'#{i} {area_of_overlap}')
             
