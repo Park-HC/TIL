@@ -60,6 +60,12 @@ def boyer_moore(small_str, long_str):
         
         i += 1
 
+        set = True
+
+        if check_idx > len(long_str) and set:
+            check_idx = len(long_str) - 1
+            set == False
+        # apple, papple 케이스, 즉 idx가 마지막 문자열을 넘어갈 경우 딱 한 번 마지막 문자로 idx를 이동시킴
 
     return bool_check
 
