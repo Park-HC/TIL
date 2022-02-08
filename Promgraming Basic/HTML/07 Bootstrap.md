@@ -56,3 +56,28 @@
 - flexbox로 제작됨
 - container, rows, column으로 컨텐츠를 배치하고 정렬
 - 12개의 column, 6개의 grid breakpoints
+
+
+
+- Container는 하위 클래스에 row 등을 쓰기 전에 다시 선언할 필요 없음
+
+
+
+### 크기 단위
+
+| 약어 | 뜻                | 범위(스크린)    |
+| ---- | ----------------- | --------------- |
+| xs   | extra small       | 전 범위 적용    |
+| sm   | small             | 576px 이상 적용 |
+| md   | medium            | 768px 이상      |
+| lg   | large             | 992px 이상      |
+| xl   | extra large       | 1200px 이상     |
+| xxl  | extra extra large | 1400px 이상     |
+
+
+
+### Offset class
+
+`class="offset-x"`
+
+- 공백 공간(빈 네모)를 표현
