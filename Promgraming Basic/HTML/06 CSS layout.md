@@ -70,7 +70,7 @@
 ```html
 .flex-container {
 	display: flex;
-<--! 혹은 line: flex-->
+<--! 혹은 inline: flex-->
 }
 ```
 
