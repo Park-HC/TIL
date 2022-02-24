@@ -120,3 +120,14 @@ $ deactivate
 
 ```
 
+
+
+## 유용한 모듈들
+
+### numpy
+
+### random
+
+### operator
+
+- 연산자를 함수로 쓸 수 있게 해주는 모듈
