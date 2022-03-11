@@ -40,8 +40,8 @@ ORDER BY
 ### Alias
 
 - Alias로 별칭을 붙이면, 그 이후론 이 별칭을 써야함
-
 - `AS`로 Alias 붙일 수 있지만, SELECT의 Alias는 ORDER BY에만 쓸 수 있음!
+- Alias를 붙여야 소문자로 컬럼명을 쓸 수 있음!
 
 
 
@@ -66,12 +66,15 @@ ORDER BY
 - WHERE로 사용 가능한 조건은 WHERE에서 사용하는 것이 성능상 유리함
   - 연산 데이터량을 줄일 수 있음
 
+- Group 없어도 반드시 사용불가능하진 않음
+
 
 
 ## ORDER BY
 
 - SELECT한 데이터를 정렬함
 - ORDER BY 절을 따로 명시하지 않으면 데이터는 임의의 순서대로 출력됨
+- 컬럼명을 명시할 수 있고, 순서를 통해 SELECT 절의 컬럼을 지시할 수 있음
 
 ### 순서
 
