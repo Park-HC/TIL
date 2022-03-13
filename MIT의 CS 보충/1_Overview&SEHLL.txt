@@ -1,0 +1,107 @@
+출처: https://missing-semester-kr.github.io/
+
+
+
+# SHELL
+
+## 개요
+
+- 텍스트 인터페이스
+- 그래픽 인터페이스(GUI)나 음성 인터페이스 등으로 제한되는 기능을 최대한 사용 가능
+- 거의 모든 플랫폼에서 1가지 이상의 SHELL을 기본적으로 제공하거나 추가 가능
+
+
+
+## 사용법
+
+### 기본
+
+```bash
+Biz@DESKTOP-D8AM61S MINGW64 ~/TIL/MIT의 CS 보충 (master)
+$
+```
+
+- `Biz@DESKTOP-D8AM61S`: 컴퓨터 명
+- `MINGW64`: 컴파일러
+- `~`: 홈 디렉터리
+- `TIL/MIT의 CS 보충`: 현재 디렉토리
+- `(master)`: 깃 활성화 중
+- `$`: 현재 사용자가 루트 사용자가 아님을 의미
+
+### 프로그램
+
+```bash
+Biz@DESKTOP-D8AM61S MINGW64 ~/TIL/MIT의 CS 보충 (master)
+$ date
+Sun Mar 13 20:49:34     2022
+# 프로그램 date 호출
+
+Biz@DESKTOP-D8AM61S MINGW64 ~/TIL/MIT의 CS 보충 (master)
+$ echo hello
+hello
+# 프로그램 echo를 hello란 인자와 함께 호출
+```
+
+
+
+```bash
+Biz@DESKTOP-D8AM61S MINGW64 ~/TIL/MIT의 CS 보충 (master)
+$ echo $PATH
+/c/Users/Biz/bin: .......
+# 프로그램 echo의 실행 경로
+
+Biz@DESKTOP-D8AM61S MINGW64 ~/TIL/MIT의 CS 보충 (master)
+$ /usr/bin/echo
+# echo의 실행 파일 위치
+
+Biz@DESKTOP-D8AM61S MINGW64 ~/TIL/MIT의 CS 보충 (master)
+$ /usr/bin/echo $PATH
+/c/Users/Biz/bin: .......
+# echo의 실행 파일 위치와 프로그램 echo의 위치는 동치
+```
+
+
+
+### 디렉토리
+
+```bash
+pwd
+# 현재 위치
+
+cd /<폴더>
+# 폴더로 이동
+
+cd ..
+# 상위 폴더로 이동(..란 폴더를 통해 상위 폴더로 이동)
+
+cd .
+# 현재 폴더로 이동
+
+Biz@DESKTOP-D8AM61S MINGW64 ~/TIL/MIT의 CS 보충 (master)
+$ ls
+'1_Overview&SEHLL.txt'
+# 현재 폴더의 파일 리스트 출력
+
+Biz@DESKTOP-D8AM61S MINGW64 ~/TIL/MIT의 CS 보충 (master)
+$ ls -l
+total 4
+-rw-r--r-- 1 Biz 197121 1777 Mar 13 21:04 '1_Overview&SEHLL.txt'
+# 현재 폴더 파일 리스트를 일렬로 출력
+# -rw-r--r-는 권한을 보여줌
+# r은 읽기 권환 w는 파일 추가, 제거 및 수정 권한
+# 앞에서부터 순서대로 파일 소유자, 소유 그룹, 다른 모든 사람들
+```
+
+
+
+```bash
+mv
+# 파일 이름 변경, 파일 이동
+
+cp
+# 파일 복사
+
+mkdir
+# 폴더 생성
+```
+
