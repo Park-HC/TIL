@@ -19,7 +19,7 @@
 
 
 
-### 설계 철학
+### Django templates system(설계 철학)
 
 - 표현(template)과 로직(view)을 분리
   - DTL은 표현을 제어하는 도구이자 표현에 관련된 로직

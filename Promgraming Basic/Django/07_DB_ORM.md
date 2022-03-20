@@ -1,8 +1,4 @@
-# Model
-
-## 개요
-
-- 데이터 베이스에 대한 내용
+# 데이터베이스
 
 ## 데이터베이스의 기본 구조
 
@@ -42,7 +38,7 @@
 
 
 
-DB <-> SQL statement <-> ORM <-> Python Object
+DB <-> SQL statement <-> ORM <-> Python Object<->Python Code
 
 
 
@@ -73,24 +69,3 @@ class Student:
 ### 단점
 
 - ORM 만으로 완전한 서비스를 구현하기 어려울 수도 있음(가능성)
-
-
-
-## Django Model
-
-### models.py 작성
-
-```django
-class Article(models.Model):
-	title = models.CharField(max_length=10)
-	블라블라
-```
-
-
-
-
-
-## DB API
-
-- DB를 조작하기 위한 도구
-- Django가 기본적으로 ORM을 제공하여 DB를 편하게 조작할 수 있게 함
