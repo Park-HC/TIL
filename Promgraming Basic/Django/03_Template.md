@@ -52,7 +52,7 @@
 ```python
 {{ variable|filter }}
 
-{{ name|lover }}
+{{ name|lower }}
 # name 변수를 모두 소문자로 출력
 ```
 
