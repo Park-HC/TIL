@@ -47,6 +47,7 @@
 
    - 직접 지워야 함
    - (master|MERGING)가 떠서 충돌 처리 전에는 commit 못함
+   - git hub에서 resolve complete나 open in web ide 등으로 해결할 수 있음
 
 
 
