@@ -1,0 +1,55 @@
+# 1. 일시 정지
+
+```python
+import time
+
+time.sleep(30)
+```
+
+- 이 코드가 없을 때는 2페이지가 한계였던 것이 5페이지로! 하지만 여전히 다운 됨
+
+
+
+# 2. robot.txt
+
+- `https://www.coupang.com/robots.txt`
+
+```
+User-agent: *
+Disallow: /
+
+User-agent: Googlebot
+Crawl-delay: 1
+Allow: /vp/products/
+Allow: /vm/products/
+Allow: /vr/products/
+Disallow: /*.css$
+Disallow: /*.js$
+
+User-agent: Googlebot-image
+Crawl-delay: 1
+Allow: /vp/products/
+Allow: /vm/products/
+Allow: /vr/products/
+Disallow: /*.css$
+Disallow: /*.js$
+
+User-agent: NaverBot
+Crawl-delay: 1
+Disallow: /*.gif$
+Disallow: /*.jpg$
+Disallow: /*.css$
+Disallow: /*.js$
+Disallow: /np/etc/trustPartners
+
+User-agent: Yeti
+Crawl-delay: 1
+Disallow: /*.gif$
+Disallow: /*.jpg$
+Disallow: /*.css$
+Disallow: /*.js$
+Disallow: /np/etc/trustPartners
+```
+
+- 크롤링 불가;;;;
+- 아래 것들은 구글과 네이버의 검색 봇들
