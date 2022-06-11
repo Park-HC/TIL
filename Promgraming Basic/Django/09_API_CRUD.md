@@ -64,6 +64,15 @@
 
 - 주어진 lookup 매개변수와 일치하는 객체를 포함하는 새 QuerySet 반환
 
+#### subject__contains
+
+```python
+Question.objects.filter(subject__contains='장고')
+# subject 속성에서 '장고' 문자열이 포함된 Question 모델들을 찾아 QuerySet으로 반환함
+```
+
+
+
 
 
 ## UPDATE
