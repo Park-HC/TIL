@@ -33,6 +33,18 @@ DATABASES = {
 SECRET_KEY='기존 settings.py에 있던 시크릿키를 붙여넣기'
 ```
 
+#### 비밀번호 수정시..
+
+```mysql
+ALTER user 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '새 비밀번호';
+
+FLUSH PRIVILEGES;
+
+# workbench에서는 생략 가능
+exit
+mysql -u root -p (새 비밀번호)
+```
+
 
 
 ### settings.py
