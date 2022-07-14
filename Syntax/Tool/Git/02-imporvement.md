@@ -11,6 +11,7 @@
 - git checkout <commit 주소>
   - 그 시점을 불러옴
   - <주소> 대신 브랜치 이름을 넣으면 브랜치로 이동함(switch와 동일한 기능)
+  - `git checkout -- .`를 입력하면 직전 상태로 되돌아옴
 - git merge
 
 
