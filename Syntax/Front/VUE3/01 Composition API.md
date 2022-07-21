@@ -195,6 +195,16 @@ export default {
 
 
 
+## vue3 ref 변수 수정하는 법
+
+```javascript
+변수 = ref(값)
+const 함수 = () => {
+	변수.value = 새값
+// 'this' 필요 없음
+}
+```
+
 
 
 ## Vue 2에서 사용시 주의 사항
