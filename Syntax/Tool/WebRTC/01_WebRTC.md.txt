@@ -1,0 +1,103 @@
+# WebRTC
+
+## 개요
+
+- Web Real-Time Communication
+- API이자 프로토콜
+  - 양방향 보안 실시간 통신을 위한 프로토콜
+  - WebRTC 프로토콜을 사용할 수 있는 WebRTC API
+- Js에 특화됨
+
+
+
+## 구성
+
+1. Signalling
+2. Connecting
+3. Securing
+4. Communicating
+
+- 4단계는 동기적으로 진행
+  - 이전 단계가 100% 성공해야 다음 단계가 실행됨
+- 각 단계는 수많은 작은 프로토콜을 가지고 있음
+
+
+
+### Signaling
+
+- 두 에이전트가 WebRTC에서 서로를 찾아 연결하고 통신을 시작할 수 있도록 호출하는 단계
+
+#### SDP
+
+- Session Descripting Protocol
+- 시그널링에 사용되는 기본 트로토콜
+- Plain-Text Protocol
+  - SDP의 메세지들은 키와 값 페어로 이루어짐
+  - 미디어 섹션 목록을 포함함
+
+- 세부정보
+  - 에이전트가 연결할 수 있는 IP 혹은 포트(후보)
+  - 에이전트가 전송하려는 오디오 및 비디오의 양
+  - 각 에이전트가 지원하는 오디오 및 비디오 코덱
+  - connecting에 사용되는 값(`uFrag`/`uPwd`)
+  - securing에 사용되는 값(인증서 핑거프린트)
+
+
+
+- 보통 WebRTC 자체를 통해 시그널링 메세지를 교환하지 않음
+  - REST나 WebSocket 등을 메세지 전송 아키텍쳐를 통해 클라이언트 간에 SDP를 교환
+
+
+
+### Connecting
+
+#### ICE
+
+- Interactive Connectivity Establishment
+- 두 에이전트 사이에 연결을 설치하는 프로토콜
+- ICE가 성공적으로 연결되면 오디오, 비디오, 데이터 전송에 사용되는 암호화 트랜스포트를 설치
+
+#### Nat Traversal, STUN/TURN 서버
+
+- 다른 서브넷의 ICE 에이전트와 통신하는 데 필요한 개념들
+
+
+
+### Securing
+
+#### DTLS
+
+- UDP를 사용한 TLS
+  - TLS: HTTPS 통신을 보호하는 암호화 프로토콜
+
+### STRP
+
+- Secure Real-time Transport Protocol
+
+#### 과정
+
+1.  ICE에서 설정한 연결을 통해 DTLS 핸드세이크를 수행하여 연결
+   - 인증을 위해 중앙 관리국을 이용하지 않음
+   - 시그널링을 통해 교환된 핑거프린트가 DTLS를 통해 교환된 인증가 일치하는 지 확인함
+   - DTLS 연결되면 DataChannel 메세지로 넘어감
+2. SRTP 사용해 RTP 패킷 보호
+   - RTP 패킷은 오디오/비디오 전송을 위한 프로토콜
+   - 협의된 DTLS 세션에서 키를 추출해 SRTP 세션을 초기화함
+
+
+
+### Communicating
+
+- 패킷 손실과 대역폭 제한 등 문제를 처리하는 방법
+
+#### RTP
+
+- Real-time Transport Protocol
+- 유연성을 제공해 개발자가 원하는 대로 지연, 손실, 홉잡을 처리하는 프로토콜
+- RTP를 사용해 SRTP로 암호화된 미디어를 교환함
+
+#### SCTP
+
+- DTLS로 암호화된 DataChannel 메세지를 주고 받음
+- 메시지에 대한 다양한 전달 옵션을 제공
+- 실시간 시스템에 필요한 대기 시간을 확보함
