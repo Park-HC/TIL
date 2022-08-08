@@ -61,3 +61,13 @@
 - `esc`: 일반 모드
 - `:wq` `:x`: 저장 후 vim 편집기 종료
 - `:q!`: 강제 종료(수정 사항 반영 안 됨)
+
+
+
+## 되돌리기
+
+```bash
+// package.json 파일을 마지막으로 pull 받았을 때로 돌려 놓는다
+$ git checkout -- package.json
+```
+
